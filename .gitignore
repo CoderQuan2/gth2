@@ -1,0 +1,10 @@
+.lake/
+build/
+*.olean
+*.ilean
+*.c
+*.o
+papers_src/*.aux
+papers_src/*.log
+papers_src/*.out
+GTHLean.zip

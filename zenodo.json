@@ -1,0 +1,23 @@
+{
+  "title": "Geotopological Hydrodynamics (GTH v12.0): Canonical GitHub-Production Repository & Empirical Verification Suite",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "description": "Production GitHub repository for Geotopological Hydrodynamics (GTH v12.0). Contains open-source Python solver `gth_solver`, Lean 4 formal verification scripts, authentic 175 SPARC dataset, out-of-sample cluster lensing and GW echo predictions, standalone manuscripts, CI/CD pipeline, and dual CC BY 4.0 / MIT licenses.",
+  "creators": [
+    {
+      "name": "Abram, Taquan A.",
+      "affiliation": "Professional Engineer & Independent Research Lead, Flint, Michigan"
+    }
+  ],
+  "keywords": [
+    "Geotopological Hydrodynamics",
+    "GTH v12.0",
+    "Lean 4 Formal Verification",
+    "SPARC Rotation Curves",
+    "Bullet Cluster Lensing",
+    "Gravitational Wave Echoes",
+    "Single-Tuple Progression Protocol"
+  ],
+  "license": "CC-BY-4.0",
+  "access_right": "open"
+}

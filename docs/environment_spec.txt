@@ -1,0 +1,24 @@
+==============================================================================
+GEOTOPOLOGICAL HYDRODYNAMICS (GTH v12.0) COMPUTATIONAL ENVIRONMENT SPECIFICATION
+==============================================================================
+Author: Taquan A. Abram (Professional Engineer, Flint, Michigan)
+Target Workstation / Devices:
+  - Mobile Workstation: Termux / Ubuntu 24.04 LTS (PRoot Linux container) on ARM64
+  - Galaxy Z Fold 7 (Android 16, One UI 8.5) / Qualcomm Snapdragon 8 Gen 3 / Adreno 750 GPU
+  - Samsung DeX Desktop Setup (Tri-Monitor DeX Environment)
+
+Software Dependencies & Compilers:
+  1. Python 3.12+ (NumPy 1.26.4, SciPy 1.13.0, Matplotlib 3.8.4, Pandas 2.2.1)
+  2. Lean 4 Formal Proof Assistant (v4.8.0-rc1) / Mathlib4
+  3. C++20 Compiler: Clang 18.1.3 / GCC 13.2.0 (-std=c++20 -O3 -march=native)
+  4. WebGPU / Vulkan Compute: Vulkan 1.3 SDK / GLSL 4.50 Compute Shaders
+  5. LaTeX Engine: TeX Live 2026 / XeLaTeX / Biber
+
+Termux Git & Push Commands:
+  $ git init
+  $ git add .
+  $ git commit -m "feat: GTH v12.0 production release"
+  $ git remote add origin https://github.com/coderquan2/gth-v12-core.git
+  $ git branch -M main
+  $ git push -u origin main
+==============================================================================

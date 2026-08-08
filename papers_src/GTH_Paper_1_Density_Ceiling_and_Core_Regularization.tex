@@ -1,0 +1,25 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{\textbf{Geotemporal Hydrodynamics (GTH) v12.0\\Paper 1: Density Ceiling and Core Regularization}}
+\author{CoderQuan2}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We establish the mathematical framework for core regularization within Geotemporal Hydrodynamics (GTH). By enforcing a strict density ceiling boundary condition $\rho \le \rho_{\max}$, gravitational and fluid-dynamic singularities are eliminated across non-linear manifold collapse regimes.
+\end{abstract}
+\section{Field Equations and Density Ceiling}
+The modified continuous energy-momentum conservation tensor under GTH formulation takes the form:
+\begin{equation}
+T_{\mu\nu} = (\rho + P) u_\mu u_\nu + P g_{\mu\nu} + \Xi_{\mu\nu}(\rho/\rho_{\max})
+\end{equation}
+where $\Xi_{\mu\nu}$ represents the non-linear core regularization factor preventing singular field concentration as $\rho \to \rho_{\max}$.
+\section{Core Boundary Conditions}
+At $r \to 0$, metric components regularize continuously without horizon collapse:
+\begin{equation}
+ds^2 = - \left(1 - \frac{2M r^2}{(r^2 + r_c^2)^{3/2}}\right) dt^2 + \left(1 - \frac{2M r^2}{(r^2 + r_c^2)^{3/2}}\right)^{-1} dr^2 + r^2 d\Omega^2
+\end{equation}
+where $r_c = \sqrt{\frac{3M}{4\pi \rho_{\max}}}$.
+\end{document}

@@ -1,0 +1,24 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{\textbf{Geotemporal Hydrodynamics (GTH) v12.0\\Paper 5: 5D-to-4D Gauss-Codazzi Zero-Mode Projection}}
+\author{CoderQuan2}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We derive the 5D-to-4D dimensional projection mechanism using the Gauss-Codazzi formal embedding equations. Zero-mode field solutions isolated on the 4D hypersurface represent observed GTH field dynamics.
+\end{abstract}
+\section{Gauss-Codazzi Hypersurface Projection}
+Let $\mathcal{M}_4 \subset \mathcal{M}_5$ be a space-like hypersurface with normal vector $n^A$. The 5D Einstein tensor projections yield 4D field constraints:
+\begin{equation}
+^{(4)}R + K^2 - K_{AB} K^{AB} = 2 \kappa_5 T_{AB} n^A n^B
+\end{equation}
+where $K_{AB} = \nabla_A n_B$ is the extrinsic curvature tensor.
+\section{Zero-Mode Localization}
+Field modes $\Phi(x^\mu, y) = \phi(x^\mu) f(y)$ localize zero-modes via:
+\begin{equation}
+\left( -\partial_y^2 + V(y) \right) f_0(y) = 0
+\end{equation}
+\end{document}

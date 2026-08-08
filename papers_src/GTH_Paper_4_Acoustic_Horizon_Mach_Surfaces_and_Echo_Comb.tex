@@ -1,0 +1,23 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{\textbf{Geotemporal Hydrodynamics (GTH) v12.0\\Paper 4: Acoustic Horizon Mach Surfaces and Echo Comb}}
+\author{CoderQuan2}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+This work details the acoustics of trans-sonic field flows in GTH. We establish the acoustic metric, horizon formation conditions, and spectral echo comb harmonics generated at Mach surfaces.
+\end{abstract}
+\section{Analogue Acoustic Metric}
+Perturbations $\theta$ propagating through fluid flow $v^\mu$ obey the wave equation in acoustic spacetime $g^{\mu\nu}_{\text{ac}}$:
+\begin{equation}
+g^{\mu\nu}_{\text{ac}} = \frac{1}{\rho_0 c_s} \begin{pmatrix} -(c_s^2 - v^2) & -v^j \\ -v^i & \delta^{ij} \end{pmatrix}
+\end{equation}
+\section{Echo Comb Harmonics}
+At the Mach surface boundary ($v = c_s$), trapped modes produce discrete resonance comb frequencies:
+\begin{equation}
+\omega_n = \frac{n \pi c_s}{2 r_h} \left( 1 + i \eta \right)
+\end{equation}
+\end{document}

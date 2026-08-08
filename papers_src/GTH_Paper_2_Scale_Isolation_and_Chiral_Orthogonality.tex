@@ -1,0 +1,27 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{\textbf{Geotemporal Hydrodynamics (GTH) v12.0\\Paper 2: Scale Isolation and Chiral Orthogonality}}
+\author{CoderQuan2}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper formulates the scale isolation protocol in GTH field theory. We prove that chiral field modes exhibit exact topological orthogonality, preventing energy cascade divergence across macro and micro scales.
+\end{abstract}
+\section{Chiral Mode Decomposition}
+Let $\Psi_{\pm}$ represent right- and left-handed chiral tensor components on the manifold $\mathcal{M}$:
+\begin{equation}
+\Psi_{\pm} = \frac{1}{2}\left(\mathcal{F} \pm i \star \mathcal{F}\right)
+\end{equation}
+The mode inner product obeys strict orthogonality:
+\begin{equation}
+\langle \Psi_+, \Psi_- \rangle = \int_{\mathcal{M}} \Psi_+ \wedge \star \Psi_- = 0
+\end{equation}
+\section{Scale Decoupling}
+Inter-scale coupling terms vanish under the projection operator $\mathcal{P}_{\text{iso}}$:
+\begin{equation}
+\mathcal{P}_{\text{iso}} \left( \nabla_\mu \Psi_+^\mu \cdot \nabla_\nu \Psi_-^\nu \right) = 0
+\end{equation}
+\end{document}

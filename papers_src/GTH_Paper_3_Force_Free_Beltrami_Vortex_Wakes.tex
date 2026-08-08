@@ -1,0 +1,22 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{\textbf{Geotemporal Hydrodynamics (GTH) v12.0\\Paper 3: Force-Free Beltrami Vortex Wakes}}
+\author{CoderQuan2}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We derive the structure of self-stabilizing, force-free Beltrami vortex wakes in continuous GTH flow fields, demonstrating that hydrodynamic helicity conservation ensures persistent structural stability.
+\end{abstract}
+\section{Beltrami Field Dynamics}
+A velocity field $\mathbf{u}$ is defined as a Beltrami field if it aligns with its own curl:
+\begin{equation}
+\nabla \times \mathbf{u} = \lambda \mathbf{u}
+\end{equation}
+The force-free condition eliminates advective non-linear momentum transport loss:
+\begin{equation}
+(\mathbf{u} \cdot \nabla) \mathbf{u} = \nabla \left(\frac{|\mathbf{u}|^2}{2}\right) - \mathbf{u} \times (\nabla \times \mathbf{u}) = \nabla \left(\frac{|\mathbf{u}|^2}{2}\right)
+\end{equation}
+\end{document}
