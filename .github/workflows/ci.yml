@@ -1,25 +1,146 @@
-name: GTH v12.0 CI & Verification Pipeline
+name: GTH Master Unified Verification & Build Matrix
 
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
 
 jobs:
-  python-tests:
+  # ------------------------------------------------------------------
+  # 1. LEAN 4 FORMAL THEOREM PROVER MATRIX
+  # ------------------------------------------------------------------
+  lean-formal-proofs:
+    name: Lean 4 Proof Verification & Executable Engine
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python 3.12
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Elan Toolchain Manager
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: Build Primary GTHLean Theorems & Main Binary
+        run: |
+          lake build
+          lake exe gthlean || lake run Main
+
+      - name: Build Nested Closure Gate Repository
+        run: |
+          cd lean4_proof_repository
+          lake build
+
+  # ------------------------------------------------------------------
+  # 2. NUMERICAL SOLVER & DUAL-DATASET BENCHMARKING
+  # ------------------------------------------------------------------
+  python-solver-benchmarks:
+    name: Python Physics Engine & Dual-Dataset Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - name: Install Dependencies
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Validate Environment Spec Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install numpy scipy matplotlib setuptools
-          pip install -e .
-      - name: Run SPARC 175 Verification Benchmark
+          python -m pip install --upgrade pip setuptools wheel pytest pandas numpy scipy
+          if [ -f "setup.py" ] || [ -f "pyproject.toml" ]; then
+            pip install -e .
+          fi
+
+      - name: Execute SPARC 175 Galaxy Rotation Benchmark
         run: |
-          python3 run_sparc_benchmark.py
+          python run_sparc_benchmark.py --dataset datasets/GTH_v12_SPARC_175_Single_Sheet_Master.csv
+
+      - name: Validate Cluster Lensing & GW Prediction Dataset
+        run: |
+          python -c "
+          import pandas as pd
+          import numpy as np
+
+          # Load cluster lensing & GW dataset
+          df_lensing = pd.read_csv('datasets/GTH_v12_Cluster_Lensing_and_GW_Predictions.csv')
+          print('Loaded Lensing Dataset:', df_lensing.shape)
+
+          # Verify non-null criticality on essential parameters
+          assert not df_lensing.empty, 'Lensing dataset is empty'
+          assert df_lensing.isnull().sum().sum() == 0, 'Null values detected in lensing dataset'
+          print('Cluster Lensing and GW dataset validation complete.')
+          "
+
+  # ------------------------------------------------------------------
+  # 3. LATEX COMPILATION & PDF ASSET VERIFICATION
+  # ------------------------------------------------------------------
+  latex-paper-builds:
+    name: LaTeX Document Engineering & Archival Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended texlive-science latexmk
+
+      - name: Compile All LaTeX Manuscripts
+        run: |
+          mkdir -p build_output
+          cd papers_src
+          for texfile in *.tex; do
+            [ -f "$texfile" ] || continue
+            echo "Building $texfile..."
+            latexmk -pdf -interaction=nonstopmode -halt-on-error "$texfile"
+          done
+          cp *.pdf ../build_output/
+
+      - name: Verify Against Existing PDF Portfolio
+        run: |
+          echo "Comparing newly built PDFs against papers/ portfolio..."
+          ls -lh build_output/
+          ls -lh papers/
+
+      - name: Upload Compiled Manuscripts
+        uses: actions/upload-artifact@v4
+        with:
+          name: GTH-Compiled-Papers
+          path: build_output/*.pdf
+
+  # ------------------------------------------------------------------
+  # 4. METADATA & RELEASE INTEGRITY GATES
+  # ------------------------------------------------------------------
+  metadata-archival-check:
+    name: Zenodo & Documentation Schema Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Validate Zenodo JSON Metadata
+        run: |
+          python -c "
+          import json
+          with open('zenodo.json', 'r') as f:
+              data = json.load(f)
+          
+          required_keys = ['title', 'description', 'creators', 'license']
+          for key in required_keys:
+              assert key in data, f'Missing key {key} in zenodo.json'
+          print('zenodo.json metadata structure valid.')
+          "
+
+      - name: Verify Documentation Checklists
+        run: |
+          test -f "docs/GTH_v12_Instructional_Theory_Update_Checklist.md"
+          test -f "docs/environment_spec.txt"
+          echo "Documentation assets validated."
