@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ------------------------------------------------------------------
+    # ------------------------------------------------------------------
   # 1. LEAN 4 FORMAL THEOREM PROVER MATRIX
   # ------------------------------------------------------------------
   lean-formal-proofs:
@@ -20,10 +20,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Elan Toolchain Manager
-        run: |
-          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
-          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+      - name: Setup Lean 4 Toolchain
+        uses: leanprover/lean4-action@v1
 
       - name: Build Primary GTHLean Theorems & Main Binary
         run: |
