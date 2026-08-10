@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-    # ------------------------------------------------------------------
+  # ------------------------------------------------------------------
   # 1. LEAN 4 FORMAL THEOREM PROVER MATRIX
   # ------------------------------------------------------------------
   verify-gth:
@@ -38,7 +38,7 @@ jobs:
             lake update
             lake build
           fi
-          
+
   # ------------------------------------------------------------------
   # 2. NUMERICAL SOLVER & DUAL-DATASET BENCHMARKING
   # ------------------------------------------------------------------
@@ -62,7 +62,11 @@ jobs:
             pip install -e .
           fi
 
-             - name: Validate Cluster Lensing & GW Prediction Dataset
+      - name: Execute SPARC 175 Galaxy Rotation Benchmark
+        run: |
+          python run_sparc_benchmark.py --dataset datasets/GTH_v12_SPARC_175_Single_Sheet_Master.csv
+
+      - name: Validate Cluster Lensing & GW Prediction Dataset
         run: |
           python -c "
           import pandas as pd
@@ -146,3 +150,4 @@ jobs:
           test -f "docs/GTH_v12_Instructional_Theory_Update_Checklist.md"
           test -f "docs/environment_spec.txt"
           echo "Documentation assets validated."
+          
