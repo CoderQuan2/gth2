@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-     # ------------------------------------------------------------------
+      # ------------------------------------------------------------------
   # 1. LEAN 4 FORMAL THEOREM PROVER MATRIX
   # ------------------------------------------------------------------
   verify-gth:
@@ -24,8 +24,10 @@ jobs:
         uses: leanprover/lean-action@v1
         with:
           auto-config: false
-          use-mathlib-cache: false
           build: ''
+          test: ''
+          lint: ''
+          use-mathlib-cache: false
 
       - name: Verify Primary GTHLean Theorems & Main Binary
         run: |
