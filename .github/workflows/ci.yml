@@ -10,18 +10,11 @@ on:
   workflow_dispatch:
 
 jobs:
-    # ------------------------------------------------------------------
-  # name: Lean 4 Proof Verification & Executable Engine
-   # ------------------------------------------------------------------
-  
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-jobs:
+  # ------------------------------------------------------------------
+  # 1. LEAN 4 FORMAL THEOREM PROVER MATRIX
+  # ------------------------------------------------------------------
   verify-gth:
+    name: Lean 4 Proof Verification & Executable Engine
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -30,13 +23,15 @@ jobs:
       - name: Install Elan & Setup Lean 4 Toolchain
         uses: leanprover/lean-action@v1
         with:
-          # Automatically uses the toolchain specified in lean-toolchain
-          # Set to true if GTH depends on Mathlib4 to fetch olean build artifacts
-          use-mathlib-cache: true 
+          use-mathlib-cache: true
 
       - name: Verify Lean 4 Proofs & Build Lake Target
         run: |
           lake build
+          if [ -d "lean4_proof_repository" ]; then
+            cd lean4_proof_repository
+            lake build
+          fi
 
   # ------------------------------------------------------------------
   # 2. NUMERICAL SOLVER & DUAL-DATASET BENCHMARKING
@@ -71,11 +66,9 @@ jobs:
           import pandas as pd
           import numpy as np
 
-          # Load cluster lensing & GW dataset
           df_lensing = pd.read_csv('datasets/GTH_v12_Cluster_Lensing_and_GW_Predictions.csv')
           print('Loaded Lensing Dataset:', df_lensing.shape)
 
-          # Verify non-null criticality on essential parameters
           assert not df_lensing.empty, 'Lensing dataset is empty'
           assert df_lensing.isnull().sum().sum() == 0, 'Null values detected in lensing dataset'
           print('Cluster Lensing and GW dataset validation complete.')
