@@ -23,11 +23,13 @@ jobs:
       - name: Install Elan & Setup Lean 4 Toolchain
         uses: leanprover/lean-action@v1
         with:
+          auto-config: false
           use-mathlib-cache: false
-          build: ''  # Disables lean-action auto-build so explicit lake steps execute below
+          build: ''
 
       - name: Verify Primary GTHLean Theorems & Main Binary
         run: |
+          lake update
           lake build
           lake exe gthlean || lake run Main
 
@@ -35,6 +37,7 @@ jobs:
         run: |
           if [ -d "lean4_proof_repository" ]; then
             cd lean4_proof_repository
+            lake update
             lake build
           fi
           
