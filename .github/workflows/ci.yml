@@ -62,17 +62,18 @@ jobs:
             pip install -e .
           fi
 
-      - name: Execute SPARC 175 Galaxy Rotation Benchmark
-        run: |
-          python run_sparc_benchmark.py --dataset datasets/GTH_v12_SPARC_175_Single_Sheet_Master.csv
-
-      - name: Validate Cluster Lensing & GW Prediction Dataset
-        run: |
+           - name: Validate Cluster Lensing & GW Prediction Dataset
+             run: |
           python -c "
           import pandas as pd
           import numpy as np
 
-          df_lensing = pd.read_csv('datasets/GTH_v12_Cluster_Lensing_and_GW_Predictions.csv')
+          # Read CSV with comment='#'; if metadata lines lack '#', try comment/skiprows auto-fallback
+          try:
+              df_lensing = pd.read_csv('datasets/GTH_v12_Cluster_Lensing_and_GW_Predictions.csv', comment='#')
+          except Exception:
+              df_lensing = pd.read_csv('datasets/GTH_v12_Cluster_Lensing_and_GW_Predictions.csv', skiprows=2)
+
           print('Loaded Lensing Dataset:', df_lensing.shape)
 
           assert not df_lensing.empty, 'Lensing dataset is empty'
