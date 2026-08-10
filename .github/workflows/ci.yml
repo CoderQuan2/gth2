@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-      # ------------------------------------------------------------------
+    # ------------------------------------------------------------------
   # 1. LEAN 4 FORMAL THEOREM PROVER MATRIX
   # ------------------------------------------------------------------
   verify-gth:
@@ -21,13 +21,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Elan & Setup Lean 4 Toolchain
-        uses: leanprover/lean-action@v1
-        with:
-          auto-config: false
-          build: ''
-          test: ''
-          lint: ''
-          use-mathlib-cache: false
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:stable
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
 
       - name: Verify Primary GTHLean Theorems & Main Binary
         run: |
